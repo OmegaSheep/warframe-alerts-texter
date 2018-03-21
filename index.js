@@ -51,6 +51,8 @@ app.listen(app.get('port'), function() {
 });
 
 app.get('/testmessage', function(request, response) {
+  response.send("Test function temporarily disabled.");
+  /* Disabled Temporarily - Since I'm actually deploying this
   client.messages.create({
       to: process.env.TEST_NUMBER,
       from: process.env.TWILIO_NUMBER,
@@ -58,7 +60,7 @@ app.get('/testmessage', function(request, response) {
   }, function(err, message) {
       response.send(message.sid);
   });
-  response.send('Message sent to test number.');
+  response.send('Message sent to test number.'); */
 });
 
 // Initial Variables for main block.
