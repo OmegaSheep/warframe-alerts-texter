@@ -1,0 +1,7 @@
+{
+  "name": "warframe-texter",
+  "description": "Warframe Text Alerts - Send a text alert to a set of users when certain items appear in an in-game 'alert' event.",
+  "logo": "http://node-js-sample.herokuapp.com/node.svg",
+  "keywords": ["Warframe", "Twitter", "Text", "Alerts", "Twilio"],
+  "image": "heroku/nodejs"
+}
