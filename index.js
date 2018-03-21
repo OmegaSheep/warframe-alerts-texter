@@ -71,6 +71,7 @@ Item.find({}, 'name', {multi: true}, function(err){
 }).then(function(itemData){
   for (var i = 0; i < itemData.length; ++i) {
     m.start(accountName, itemData[i]['name'], 30 * 1000);
+    console.log("Item "+str(i+1)+": "+itemData[i]['name']);
   }
   return;
 });
