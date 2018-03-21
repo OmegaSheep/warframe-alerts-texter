@@ -63,7 +63,7 @@ app.get('/testmessage', function(request, response) {
 
 // Initial Variables for main block.
 var m = new monitor(twitterConfig);
-var accountName = 'BotWarframe';//'warframealerts';
+var accountName = 'warframealerts';
 
 // This block sets up a regEX match for every item we want to monitor.
 Item.find({}, 'name', {multi: true}, function(err){
