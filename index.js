@@ -84,6 +84,7 @@ m.on(accountName, function(tweet) {
     console.log("Obtained user data.");
   }).then(function(userData){
     for (var i = 0; i < userData.length; ++i) {
+      /*
       client.messages.create({
           to: userData[i]['phoneNumber'],
           from: process.env.TWILIO_NUMBER,
@@ -92,6 +93,8 @@ m.on(accountName, function(tweet) {
       }, function(err, message) {
           console.log(message.sid);
       });
+      */
+      console.log(JSON.stringify(tweet));
     }
     return;
   });
