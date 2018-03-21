@@ -63,7 +63,7 @@ app.get('/testmessage', function(request, response) {
 
 // Initial Variables for main block.
 var m = new monitor(twitterConfig);
-var accountName = 'warframealerts';
+var accountName = 'BotWarframe';//'warframealerts';
 
 // This block sets up a regEX match for every item we want to monitor.
 Item.find({}, 'name', {multi: true}, function(err){
@@ -78,23 +78,20 @@ Item.find({}, 'name', {multi: true}, function(err){
 
 // Called when a matching tweet is received.
 m.on(accountName, function(tweet) {
-  console.log('Warframe Alert Tweet:', tweet);
+  console.log('Warframe Alert Tweet:', JSON.stringify(tweet));
 
   User.find({}, 'name phoneNumber', {multi: true}, function(err){
     console.log("Obtained user data.");
   }).then(function(userData){
     for (var i = 0; i < userData.length; ++i) {
-      /*
       client.messages.create({
           to: userData[i]['phoneNumber'],
           from: process.env.TWILIO_NUMBER,
           body: "Hello "+userData[i]['name']+",\n"+
-          "The following Warframe Alert has been released: \n\n"+tweet,
+          "The following Warframe Alert has been released: \n\n"+tweet['text'],
       }, function(err, message) {
           console.log(message.sid);
       });
-      */
-      console.log(JSON.stringify(tweet));
     }
     return;
   });
