@@ -8,3 +8,4 @@ mlab.com - Free MongoDB storage. (Store the list of subscribers / items to watch
 heroku.com - Free hosting for Node.js apps.
 twilio.com - For sending SMS messages.
 twitter.com - Monitoring @WarframeAlerts for relevant activity.
+node.js - For the app itself.
