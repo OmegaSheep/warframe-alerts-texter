@@ -45,7 +45,7 @@ app.set('view engine', 'ejs');
 app.get('/', function(request, response) {
   //response.send('Warframe Text Alerts is working! Path Hit: ' + request.url);
   response.render('pages/index', {
-    displayedTweetID: displayedTweetID,
+    displayedTweetHTML: displayedTweetHTML,
   });
 });
 
@@ -69,6 +69,7 @@ app.get('/testmessage', function(request, response) {
 // Initial Variables for main block.
 
 var displayedTweetID = "983029712837578800"; //placeholder . . .
+var displayedTweetHTML = "<p>Failure</p>";
 var m = new monitor(twitterConfig);
 var accountName = 'warframealerts';
 
@@ -87,6 +88,11 @@ Item.find({}, 'name', {multi: true}, function(err){
 m.on(accountName, function(tweet) {
   console.log('Warframe Alert Tweet:', JSON.stringify(tweet));
   displayedTweetID = tweet['id'];
+  request('https://publish.twitter.com/oembed', {url: 'https://twitter.com/'+accountName+'/status/'+displayedTweetID}, function(error, response, body){
+    console.log('error:', error); // Print the error if one occurred
+    console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
+    console.log('body:', body); // Print the HTML for the Google homepage.
+  });
   User.find({}, 'name phoneNumber', {multi: true}, function(err){
     console.log("Obtained user data.");
   }).then(function(userData){
