@@ -1,0 +1,19 @@
+<div>
+    <p>There should be a single tweet below. It will appear (and change) whenever a Tweet ID is clicked..</p>
+    <ul>
+        <li ng-class="{'bg-success': tweetId == selectedTweet}" ng-repeat="tweetId in tweetIDs track by $index"><a href="" ng-click="selectTweet(tweetId)">{{tweetId}}</a></li>
+    </ul>
+    <twitter-widget twitter-widget-id="selectedTweet" twitter-widget-options="{}">
+    </twitter-widget>
+    <p>There should be a single timeline below. It will appear (and change) whenever a Timeline ID is clicked...</p>
+    <ul>
+        <li ng-class="{'bg-success': timelineID == selectedTimeline}" ng-repeat="timelineID in timelineIDs track by $index"><a href="" ng-click="selectTimeline(timelineID)">{{timelineID}}</a></li>
+    </ul>
+    <twitter-timeline twitter-timeline-id="selectedTimeline" twitter-timeline-options="{}"></twitter-timeline>
+    <p>The new-style timeline below should load when the link is toggled on and off</p>
+    <ul>
+        <li ng-class="{'bg-success': newTimelineID == selectedNewTimeline}" ng-repeat="newTimelineID in newTimelineIDs track by $index"><a href="" ng-click="selectNewTimeline(newTimelineID)">{{newTimelineID}}</a></li>
+    </ul>
+    <twitter-timeline twitter-timeline-type="collection" twitter-timeline-id="selectedNewTimeline" twitter-timeline-options='{"height": 300}'></twitter-timeline>
+</div>
+
