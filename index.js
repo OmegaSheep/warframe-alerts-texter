@@ -69,7 +69,7 @@ app.get('/testmessage', function(request, response) {
 // Initial Variables for main block.
 
 var displayedTweetID = "983029712837578800"; //placeholder . . .
-var displayedTweetHTML = "<p>Failure</p>";
+var displayedTweetHTML = "<p>No recent tweets to display.</p>";
 var m = new monitor(twitterConfig);
 var accountName = 'warframealerts';
 
@@ -91,8 +91,9 @@ Item.find({}, 'name', {multi: true}, function(err){
 m.on(accountName, function(tweet) {
   console.log('Warframe Alert Tweet:', JSON.stringify(tweet));
   displayedTweetID = tweet['id'];
-  twitterURL = 'https://publish.twitter.com/oembed?url=https%3A%2F%2Ftwitter.com/'+accountName+'/status/'+displayedTweetID;
-  request(twitterURL, function (error, response, body) {
+  twitterURL = 'https://publish.twitter.com/oembed';
+  queryString = {url: 'https://twitter.com/WarframeAlerts/status/983111248656166913'};
+  request({url: twitterURL, qs: queryString}, function (error, response, body) {
     //console.log('error:', error); // Print the error if one occurred
     console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
     console.log('body:', JSON.stringify(body)); // Print the HTML for the Google homepage.
