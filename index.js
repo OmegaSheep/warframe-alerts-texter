@@ -92,7 +92,7 @@ m.on(accountName, function(tweet) {
   console.log('Warframe Alert Tweet:', JSON.stringify(tweet));
   displayedTweetID = tweet['id'];
   twitterURL = 'https://publish.twitter.com/oembed';
-  queryString = {url: 'https://twitter.com/'+accountName+'/status/'+displayedTweetID+'983111248656166913'};
+  queryString = {url: 'https://twitter.com/'+accountName+'/status/'+displayedTweetID};
   console.log("URL: "+queryString.url);
   request({url: twitterURL, qs: queryString}, function (error, response, body) {
     //console.log('error:', error); // Print the error if one occurred
