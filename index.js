@@ -71,7 +71,7 @@ app.get('/testmessage', function(request, response) {
 var displayedTweetID = "983029712837578800"; //placeholder . . .
 var displayedTweetHTML = "<p>No recent tweets to display.</p>";
 var m = new monitor(twitterConfig);
-var accountName = 'warframealerts';
+var accountName = 'WarframeAlerts';
 
 // This block sets up a regEX match for every item we want to monitor.
 Item.find({}, 'name', {multi: true}, function(err){
@@ -92,18 +92,13 @@ m.on(accountName, function(tweet) {
   console.log('Warframe Alert Tweet:', JSON.stringify(tweet));
   displayedTweetID = tweet['id'];
   twitterURL = 'https://publish.twitter.com/oembed';
-  queryString = {url: 'https://twitter.com/WarframeAlerts/status/983111248656166913'};
+  queryString = {url: 'https://twitter.com/'+accountName+'/status/'+displayedTweetID+'983111248656166913'};
+  console.log("URL: "+queryString.url);
   request({url: twitterURL, qs: queryString}, function (error, response, body) {
     //console.log('error:', error); // Print the error if one occurred
     console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
-    console.log('body:', JSON.stringify(body)); // Print the HTML for the Google homepage.
-  })
-  /*queryString = {url:'https://twitter.com/'+accountName+'/status/'+displayedTweetID};
-  request({url:'https://publish.twitter.com/oembed', qs:queryString}, function(error, response, body){
-    console.log('error:', error); // Print the error if one occurred
-    console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
-    console.log('body:', body); // Print the HTML for the Google homepage.
-  });*/
+    //console.log('body:', JSON.stringify(body)); // Print the HTML for the Google homepage.
+  });
   User.find({}, 'name phoneNumber', {multi: true}, function(err){
     console.log("Obtained user data.");
   }).then(function(userData){
