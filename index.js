@@ -68,7 +68,7 @@ app.get('/testmessage', function(request, response) {
 
 // Initial Variables for main block.
 
-var displayedTweetID = "617749885933232128"; //placeholder . . .
+var displayedTweetID = "983029712837578800"; //placeholder . . .
 var m = new monitor(twitterConfig);
 var accountName = 'warframealerts';
 

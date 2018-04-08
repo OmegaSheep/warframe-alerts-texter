@@ -2,6 +2,11 @@
 <html>
 <head>
   <% include ../partials/header.ejs %>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.1/angular.min.js"></script>
+    <script src="bower_modules/ngtweet/dist/ngtweet.min.js"></script>
+    <script type="text/javascript" charset="utf-8">
+        var myApp = angular.module('myApp', ['ngtweet']);
+    </script>
 </head>
 
 <body>
