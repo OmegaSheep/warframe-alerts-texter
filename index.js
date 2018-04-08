@@ -68,7 +68,7 @@ app.get('/testmessage', function(request, response) {
 
 // Initial Variables for main block.
 
-var displayedTweetID;
+var displayedTweetID = "5";
 var m = new monitor(twitterConfig);
 var accountName = 'warframealerts';
 
