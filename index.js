@@ -91,7 +91,7 @@ Item.find({}, 'name', {multi: true}, function(err){
 m.on(accountName, function(tweet) {
   console.log('Warframe Alert Tweet:', JSON.stringify(tweet));
   displayedTweetID = tweet['id'];
-  twitterURL = 'https://publish.twitter.com/oembed?url=https%3A%2F%2Ftwitter.com%2F'+accountName+'%2Fstatus%2F'+displayedTweetID;
+  twitterURL = 'https://publish.twitter.com/oembed?url=https%3A%2F%2Ftwitter.com/'+accountName+'/status/'+displayedTweetID;
   request(twitterURL, function (error, response, body) {
     //console.log('error:', error); // Print the error if one occurred
     console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
