@@ -93,9 +93,9 @@ m.on(accountName, function(tweet) {
   displayedTweetID = tweet['id'];
   twitterURL = 'https://publish.twitter.com/oembed?url=https%3A%2F%2Ftwitter.com%2F'+accountName+'%2Fstatus%2F'+displayedTweetID;
   request(twitterURL, function (error, response, body) {
-    console.log('error:', error); // Print the error if one occurred
+    //console.log('error:', error); // Print the error if one occurred
     console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
-    console.log('body:', body); // Print the HTML for the Google homepage.
+    console.log('body:', JSON.stringify(body)); // Print the HTML for the Google homepage.
   })
   /*queryString = {url:'https://twitter.com/'+accountName+'/status/'+displayedTweetID};
   request({url:'https://publish.twitter.com/oembed', qs:queryString}, function(error, response, body){
