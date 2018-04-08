@@ -87,6 +87,7 @@ m.on(accountName, function(tweet) {
     console.log("Obtained user data.");
   }).then(function(userData){
     for (var i = 0; i < userData.length; ++i) {
+      /* DISABLED TEMPORARILY
       client.messages.create({
           to: userData[i]['phoneNumber'],
           from: process.env.TWILIO_NUMBER,
@@ -94,7 +95,7 @@ m.on(accountName, function(tweet) {
           "The following Warframe Alert has been released: \n\n"+tweet['text'],
       }, function(err, message) {
           console.log(message.sid);
-      });
+      });*/
     }
     return;
   });
