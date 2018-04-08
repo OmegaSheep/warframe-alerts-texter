@@ -3,7 +3,8 @@ var request = require('request');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 mongoose.Promise = require('bluebird'); // Better promise module than default.
-var monitor = require('monitor-twitter');
+//var monitor = require('monitor-twitter');
+var path = require('path');
 var app = express();
 
 // Twitter Credentials
@@ -33,6 +34,7 @@ var Item = mongoose.model('Item', SCHEMA.itemSchema);
 app.set('port', (process.env.PORT || 5000));
 
 app.use(express.static(__dirname + '/public'));
+app.use('/scripts', express.static(path.join(__dirname, 'node_modules/monitor-twitter')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
