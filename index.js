@@ -68,8 +68,6 @@ app.get('/testmessage', function(request, response) {
 });
 
 // Initial Variables for main block.
-
-var displayedTweetID = "983029712837578800"; //placeholder . . .
 var displayedTweetHTML = "<p>No recent tweets to display.</p>";
 var m = new monitor(twitterConfig);
 var accountName = 'WarframeAlerts';
@@ -91,15 +89,20 @@ Item.find({}, 'name', {multi: true}, function(err){
 // Called when a matching tweet is received.
 m.on(accountName, function(tweet) {
   console.log('Warframe Alert Tweet:', JSON.stringify(tweet));
-  displayedTweetID = tweet['id'];
   twitterURL = 'https://publish.twitter.com/oembed';
-  queryString = {url: 'https://twitter.com/'+accountName+'/status/'+displayedTweetID};
-  console.log("URL: "+queryString.url);
+  queryString = {url: 'https://twitter.com/'+accountName+'/status/'+tweet['id']};
+
+  // This can be done asynchronously. Update the latest received tweet on the homepage.
   request({url: twitterURL, qs: queryString}, function (error, response, body) {
     //console.log('error:', error); // Print the error if one occurred
-    console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
-    //console.log('body:', JSON.stringify(body)); // Print the HTML for the Google homepage.
+    //console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
+    //console.log('body:', JSON.stringify(body)); // Print the response body
+
+    displayedTweetHTML = body.html;
+    console.log("HTML: \n"+displayedTweetHTML);
   });
+
+  // Send texts to all subscribers.
   User.find({}, 'name phoneNumber', {multi: true}, function(err){
     console.log("Obtained user data.");
   }).then(function(userData){
@@ -116,4 +119,5 @@ m.on(accountName, function(tweet) {
     }
     return;
   });
+
 });
