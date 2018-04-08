@@ -82,7 +82,7 @@ Item.find({}, 'name', {multi: true}, function(err){
     console.log("Item "+(i+1).toString()+": "+itemData[i]['name']);
   }
 
-  m.start(accountName, 'alert', 30 * 1000); //test
+  m.start(accountName, 'cr', 30 * 1000); //test
 
   return;
 });
