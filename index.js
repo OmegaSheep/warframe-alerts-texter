@@ -91,7 +91,7 @@ Item.find({}, 'name', {multi: true}, function(err){
 m.on(accountName, function(tweet) {
   console.log('Warframe Alert Tweet:', JSON.stringify(tweet));
   displayedTweetID = tweet['id'];
-  request('https://publish.twitter.com/oembed', {url: 'https://twitter.com/'+accountName+'/status/'+displayedTweetID}, function(error, response, body){
+  request({url:'https://publish.twitter.com/oembed', qs: {'https://twitter.com/'+accountName+'/status/'+displayedTweetID}}, function(error, response, body){
     console.log('error:', error); // Print the error if one occurred
     console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
     console.log('body:', body); // Print the HTML for the Google homepage.
