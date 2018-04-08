@@ -44,7 +44,9 @@ app.set('view engine', 'ejs');
 
 app.get('/', function(request, response) {
   //response.send('Warframe Text Alerts is working! Path Hit: ' + request.url);
-  response.render('pages/index')
+  response.render('pages/index', {
+    displayedTweetID: displayedTweetID,
+  });
 });
 
 app.listen(app.get('port'), function() {
@@ -65,6 +67,8 @@ app.get('/testmessage', function(request, response) {
 });
 
 // Initial Variables for main block.
+
+var displayedTweetID;
 var m = new monitor(twitterConfig);
 var accountName = 'warframealerts';
 
@@ -82,7 +86,7 @@ Item.find({}, 'name', {multi: true}, function(err){
 // Called when a matching tweet is received.
 m.on(accountName, function(tweet) {
   console.log('Warframe Alert Tweet:', JSON.stringify(tweet));
-
+  displayedTweetID = tweet['id'];
   User.find({}, 'name phoneNumber', {multi: true}, function(err){
     console.log("Obtained user data.");
   }).then(function(userData){
