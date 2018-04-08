@@ -81,6 +81,9 @@ Item.find({}, 'name', {multi: true}, function(err){
     m.start(accountName, itemData[i]['name'], 30 * 1000);
     console.log("Item "+(i+1).toString()+": "+itemData[i]['name']);
   }
+
+  m.start(accountName, 'alert', 30 * 1000); //test
+
   return;
 });
 
