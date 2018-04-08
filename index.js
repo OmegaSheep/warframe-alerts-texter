@@ -43,7 +43,8 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
 app.get('/', function(request, response) {
-  response.send('Warframe Text Alerts is working! Path Hit: ' + request.url);
+  //response.send('Warframe Text Alerts is working! Path Hit: ' + request.url);
+  response.render('pages/index')
 });
 
 app.listen(app.get('port'), function() {
