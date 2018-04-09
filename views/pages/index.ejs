@@ -52,6 +52,7 @@
 <script>
   var socket = io.connect('https://warframe-texter-alerts.herokuapp.com/');
   socket.on('displayedTweetHTML', function(data){
+    console.log("Received: "+data)
     $('#latestTweet').text(data).html();
   });
 </script>

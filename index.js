@@ -106,7 +106,7 @@ m.on(accountName, function(tweet) {
     //console.log('error:', error); // Print the error if one occurred
     //console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
     //console.log('body:', JSON.stringify(body)); // Print the response body
-
+    console.log(JSON.stringify(response));
     displayedTweetHTML = response.html;
     console.log("HTML: \n"+displayedTweetHTML);
   });
