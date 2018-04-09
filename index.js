@@ -4,8 +4,8 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 mongoose.Promise = require('bluebird'); // Better promise module than default.
 var monitor = require('./js/monitor-twitter/index.js'); // Use a local copy of this module with custom modifications.
-var io = require('socket.io');
 var app = express();
+var io = require('socket.io')(app);
 
 // Twitter Credentials
 var twitterConfig = {
