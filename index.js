@@ -5,7 +5,9 @@ var mongoose = require('mongoose');
 mongoose.Promise = require('bluebird'); // Better promise module than default.
 var monitor = require('./js/monitor-twitter/index.js'); // Use a local copy of this module with custom modifications.
 var app = express();
-var io = require('socket.io')(app);
+var http = require('http');
+var server = http.createServer(app);
+var io = require('socket.io').listen(server);
 
 // Twitter Credentials
 var twitterConfig = {
@@ -50,9 +52,11 @@ app.get('/', function(request, response) {
   });
 });
 
+server.listen(80);
+/*
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
-});
+});*/
 
 app.get('/testmessage', function(request, response) {
   response.send("Test function temporarily disabled.");
