@@ -37,7 +37,8 @@
     <div class="col-md-6">
       <h3><span class="glyphicon glyphicon-info-sign"></span> Last Alert Sent</h3>
 
-      <%- displayedTweetHTML %>
+      <div id="latestTweet">
+      </div>
 
     </div>
   </div> <!-- row -->
@@ -47,4 +48,12 @@
 </div>
 
 </body>
+
+<script>
+  var socket = io.connect('https://warframe-texter-alerts.herokuapp.com/');
+  socket.on('displayedTweetHTML', function(data){
+    $('#latestTweet').text(data).html();
+  });
+</script>
+
 </html>

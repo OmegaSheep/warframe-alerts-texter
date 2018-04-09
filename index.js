@@ -4,7 +4,7 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 mongoose.Promise = require('bluebird'); // Better promise module than default.
 var monitor = require('./js/monitor-twitter/index.js'); // Use a local copy of this module with custom modifications.
-var path = require('path');
+var io = require('socket.io');
 var app = express();
 
 // Twitter Credentials
@@ -84,6 +84,11 @@ Item.find({}, 'name', {multi: true}, function(err){
   m.start(accountName, 'cr', 30 * 1000); //test
 
   return;
+});
+
+// Create a socket for displayedTweetHTML
+io.on('connection', function (socket) {
+  socket.emit('displayedTweetHTML', { displayedTweetHTML: displayedTweetHTML });
 });
 
 // Called when a matching tweet is received.
