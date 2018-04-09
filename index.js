@@ -3,7 +3,7 @@ var request = require('request');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 mongoose.Promise = require('bluebird'); // Better promise module than default.
-var monitor = require('./js/monitor-twitter/index.js');
+var monitor = require('./js/monitor-twitter/index.js'); // Use a local copy of this module with custom modifications.
 var path = require('path');
 var app = express();
 
