@@ -108,7 +108,7 @@ m.on(accountName, function(tweet) {
     //console.log('body:', JSON.stringify(body)); // Print the response body
     console.log("1 -- "+JSON.stringify(response.body));
     console.log("2 -- "+JSON.stringify(response.body['html']));
-    console.log("3 -- "+JSON.stringify(body);
+    console.log("3 -- "+JSON.stringify(body));
     displayedTweetHTML = response['body']['html'];
     console.log("HTML: \n"+displayedTweetHTML);
   });
