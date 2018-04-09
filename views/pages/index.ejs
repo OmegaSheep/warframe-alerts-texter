@@ -51,7 +51,6 @@
 
 <script src="/socket.io/socket.io.js"></script>
 <script>
-  const io = require('socket.io-client');
   var socket = io.connect('https://warframe-texter-alerts.herokuapp.com/');
   socket.on('displayedTweetHTML', function(data){
     console.log("Received: "+data)
