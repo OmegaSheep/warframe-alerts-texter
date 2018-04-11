@@ -86,10 +86,10 @@ Item.find({}, 'name', {multi: true}, function(err){
   for (var i = 0; i < itemData.length; ++i) {
     regexString += itemData[i]['name'];
     console.log("Item "+(i+1).toString()+": "+itemData[i]['name']);
-    i < itemData.length - 1 ? regexString += "|";
+    if (i < itemData.length - 1) { regexString += "|"; }
   }
   m.start(accountName, regexString, 30 * 1000);
-  
+
   //m.start(accountName, 'cr', 30 * 1000); //test
 
   return;
