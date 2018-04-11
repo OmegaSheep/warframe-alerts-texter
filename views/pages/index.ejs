@@ -58,7 +58,6 @@
     socket.once('displayedTweetHTML', function(data){
       console.log("Received: "+JSON.stringify(data));
       $('#latestTweet').html(data['displayedTweetHTML']);
-    }).then(function(){
       setupSocket();
     });
   }
