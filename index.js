@@ -93,6 +93,15 @@ Item.find({}, 'name', {multi: true}, function(err){
   return;
 });
 
+// Create a socket for displayedTweetHTML
+var x = 1;
+setInterval(function(){
+  io.on('connection', function (socket) {
+    socket.emit('displayedTweetHTML', { displayedTweetHTML: "<p"+x.toString()+"</p>" });
+  });
+  x += 1;
+}, 5000);
+
 // Called when a matching tweet is received.
 m.on(accountName, function(tweet) {
   console.log('Warframe Alert Tweet:', JSON.stringify(tweet));
@@ -109,12 +118,12 @@ m.on(accountName, function(tweet) {
     console.log("HTML: \n"+displayedTweetHTML);
 
     // Create a socket for displayedTweetHTML
-    io.on('connection', function (socket) {
+    /*io.on('connection', function (socket) {
       socket.emit('displayedTweetHTML', { displayedTweetHTML: displayedTweetHTML });
       setTimeout(function() {
         socket.close();
       }, 5000);
-    });
+    });*/
 
   });
 
