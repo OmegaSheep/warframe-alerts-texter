@@ -82,12 +82,15 @@ var accountName = 'WarframeAlerts';
 Item.find({}, 'name', {multi: true}, function(err){
   console.log("Obtained item data.");
 }).then(function(itemData){
+  regexString = "";
   for (var i = 0; i < itemData.length; ++i) {
-    m.start(accountName, itemData[i]['name'], 30 * 1000);
+    regexString += itemData[i]['name'];
     console.log("Item "+(i+1).toString()+": "+itemData[i]['name']);
+    i < itemData.length - 1 ? regexString += "|";
   }
-
-  m.start(accountName, 'cr', 30 * 1000); //test
+  m.start(accountName, regexString, 30 * 1000);
+  
+  //m.start(accountName, 'cr', 30 * 1000); //test
 
   return;
 });
