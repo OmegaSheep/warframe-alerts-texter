@@ -56,19 +56,6 @@ server.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
 });
 
-app.get('/testmessage', function(request, response) {
-  response.send("Test function temporarily disabled.");
-  /* Disabled Temporarily - Since I'm actually deploying this
-  client.messages.create({
-      to: process.env.TEST_NUMBER,
-      from: process.env.TWILIO_NUMBER,
-      body: "The test message has been called."
-  }, function(err, message) {
-      response.send(message.sid);
-  });
-  response.send('Message sent to test number.'); */
-});
-
 // Initial Variables for main block.
 var displayedTweetHTML = "<p>No recent tweets to display.</p>";
 var m = new monitor(twitterConfig);
@@ -93,49 +80,46 @@ Item.find({}, 'name', {multi: true}, function(err){
 var x = 1;
 
 io.on('connection', function (socket) {
+  // Rapid Emitter for Testing
+  /*
   setInterval(function(){
     socket.emit('displayedTweetHTML', { displayedTweetHTML: "<p>"+x.toString()+"</p>" });
     x += 1;
-  }, 5000);
+  }, 5000);*/
+
+  // Called when a matching tweet is received.
+  m.on(accountName, function(tweet) {
+    console.log('Warframe Alert Tweet:', JSON.stringify(tweet));
+    twitterURL = 'https://publish.twitter.com/oembed';
+    queryString = {url: 'https://twitter.com/'+accountName+'/status/'+tweet['id']};
+
+    // Request the HTML version of the matching Tweet. Done asynchronously.
+    request({url: twitterURL, qs: queryString}, function (error, response, body) {
+      displayedTweetHTML = JSON.parse(body)['html'];
+      console.log("HTML: \n"+displayedTweetHTML);
+      socket.emit('displayedTweetHTML', { displayedTweetHTML: displayedTweetHTML });
+    });
+
+    //sendSMSMessage(tweet['text']);
+    
+  });
 });
 
-// Called when a matching tweet is received.
-m.on(accountName, function(tweet) {
-  console.log('Warframe Alert Tweet:', JSON.stringify(tweet));
-  twitterURL = 'https://publish.twitter.com/oembed';
-  queryString = {url: 'https://twitter.com/'+accountName+'/status/'+tweet['id']};
-
-  // This can be done asynchronously. Update the latest received tweet on the homepage.
-  request({url: twitterURL, qs: queryString}, function (error, response, body) {
-    displayedTweetHTML = JSON.parse(body)['html'];
-    console.log("HTML: \n"+displayedTweetHTML);
-
-    // Create a socket for displayedTweetHTML
-    /*io.on('connection', function (socket) {
-      socket.emit('displayedTweetHTML', { displayedTweetHTML: displayedTweetHTML });
-      setTimeout(function() {
-        socket.close();
-      }, 5000);
-    });*/
-
-  });
-
+function sendSMSMessage(text) {
   // Send texts to all subscribers.
   User.find({}, 'name phoneNumber', {multi: true}, function(err){
     console.log("Obtained user data.");
   }).then(function(userData){
     for (var i = 0; i < userData.length; ++i) {
-      /* DISABLED TEMPORARILY
       client.messages.create({
           to: userData[i]['phoneNumber'],
           from: process.env.TWILIO_NUMBER,
           body: "Hello "+userData[i]['name']+",\n"+
-          "The following Warframe Alert has been released: \n\n"+tweet['text'],
+          "The following Warframe Alert has been released: \n\n"+text,
       }, function(err, message) {
           console.log(message.sid);
-      });*/
+      });
     }
     return;
   });
-
-});
+}
