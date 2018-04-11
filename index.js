@@ -86,6 +86,7 @@ io.on('connection', function (socket) {
     socket.emit('displayedTweetHTML', { displayedTweetHTML: "<p>"+x.toString()+"</p>" });
     x += 1;
   }, 5000);*/
+  socket.emit('connection', "Success.");
 });
 
 // Called when a matching tweet is received.
