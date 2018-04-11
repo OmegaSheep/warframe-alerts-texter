@@ -88,10 +88,8 @@ Item.find({}, 'name', {multi: true}, function(err){
     console.log("Item "+(i+1).toString()+": "+itemData[i]['name']);
     if (i < itemData.length - 1) { regexString += "|"; }
   }
+  console.log("Final RegEx: \n"+regexString+"\n");
   m.start(accountName, regexString, 30 * 1000);
-
-  //m.start(accountName, 'cr', 30 * 1000); //test
-
   return;
 });
 
