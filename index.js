@@ -97,7 +97,7 @@ Item.find({}, 'name', {multi: true}, function(err){
 var x = 1;
 setInterval(function(){
   io.on('connection', function (socket) {
-    socket.emit('displayedTweetHTML', { displayedTweetHTML: "<p"+x.toString()+"</p>" });
+    socket.emit('displayedTweetHTML', { displayedTweetHTML: "<p>"+x.toString()+"</p>" });
   });
   x += 1;
 }, 5000);
