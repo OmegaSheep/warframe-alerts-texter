@@ -93,11 +93,6 @@ Item.find({}, 'name', {multi: true}, function(err){
   return;
 });
 
-// Create a socket for displayedTweetHTML
-io.on('connection', function (socket) {
-  socket.emit('displayedTweetHTML', { displayedTweetHTML: displayedTweetHTML });
-});
-
 // Called when a matching tweet is received.
 m.on(accountName, function(tweet) {
   console.log('Warframe Alert Tweet:', JSON.stringify(tweet));
@@ -108,10 +103,19 @@ m.on(accountName, function(tweet) {
   request({url: twitterURL, qs: queryString}, function (error, response, body) {
     //console.log('error:', error); // Print the error if one occurred
     //console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
-    //console.log('body:', JSON.stringify(body)); // Print the response body
-    console.log(JSON.parse(body));
+    //console.log('body:', JSON.stringify(body)); // Print the response body\
+
     displayedTweetHTML = JSON.parse(body)['html'];
     console.log("HTML: \n"+displayedTweetHTML);
+
+    // Create a socket for displayedTweetHTML
+    io.on('connection', function (socket) {
+      socket.emit('displayedTweetHTML', { displayedTweetHTML: displayedTweetHTML });
+      setTimeout(function() {
+        socket.close();
+      }, 5000);
+    });
+
   });
 
   // Send texts to all subscribers.
