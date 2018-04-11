@@ -91,12 +91,13 @@ Item.find({}, 'name', {multi: true}, function(err){
 
 // Create a socket for displayedTweetHTML
 var x = 1;
-setInterval(function(){
-  io.on('connection', function (socket) {
-    socket.emit('displayedTweetHTML', { displayedTweetHTML: "<p>"+x.toString()+"</p>" });
-  });
-  x += 1;
-}, 5000);
+
+io.on('connection', function (socket) {
+  setInterval(function(){
+      socket.emit('displayedTweetHTML', { displayedTweetHTML: "<p>"+x.toString()+"</p>" });
+    x += 1;
+  }, 5000);
+});
 
 // Called when a matching tweet is received.
 m.on(accountName, function(tweet) {
