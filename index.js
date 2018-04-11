@@ -86,23 +86,23 @@ io.on('connection', function (socket) {
     socket.emit('displayedTweetHTML', { displayedTweetHTML: "<p>"+x.toString()+"</p>" });
     x += 1;
   }, 5000);*/
+});
 
-  // Called when a matching tweet is received.
-  m.on(accountName, function(tweet) {
-    console.log('Warframe Alert Tweet:', JSON.stringify(tweet));
-    twitterURL = 'https://publish.twitter.com/oembed';
-    queryString = {url: 'https://twitter.com/'+accountName+'/status/'+tweet['id']};
+// Called when a matching tweet is received.
+m.on(accountName, function(tweet) {
+  console.log('Warframe Alert Tweet:', JSON.stringify(tweet));
+  twitterURL = 'https://publish.twitter.com/oembed';
+  queryString = {url: 'https://twitter.com/'+accountName+'/status/'+tweet['id']};
 
-    // Request the HTML version of the matching Tweet. Done asynchronously.
-    request({url: twitterURL, qs: queryString}, function (error, response, body) {
-      displayedTweetHTML = JSON.parse(body)['html'];
-      console.log("HTML: \n"+displayedTweetHTML);
-      socket.emit('displayedTweetHTML', { displayedTweetHTML: displayedTweetHTML });
-    });
-
-    //sendSMSMessage(tweet['text']);
-    
+  // Request the HTML version of the matching Tweet. Done asynchronously.
+  request({url: twitterURL, qs: queryString}, function (error, response, body) {
+    displayedTweetHTML = JSON.parse(body)['html'];
+    console.log("HTML: \n"+displayedTweetHTML);
+    io.emit('displayedTweetHTML', { displayedTweetHTML: displayedTweetHTML });
   });
+
+  //sendSMSMessage(tweet['text']);
+
 });
 
 function sendSMSMessage(text) {
