@@ -55,10 +55,6 @@ app.get('/', function(request, response) {
 server.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
 });
-/*
-app.listen(app.get('port'), function() {
-  console.log('Node app is running on port', app.get('port'));
-});*/
 
 app.get('/testmessage', function(request, response) {
   response.send("Test function temporarily disabled.");
@@ -110,10 +106,6 @@ m.on(accountName, function(tweet) {
 
   // This can be done asynchronously. Update the latest received tweet on the homepage.
   request({url: twitterURL, qs: queryString}, function (error, response, body) {
-    //console.log('error:', error); // Print the error if one occurred
-    //console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
-    //console.log('body:', JSON.stringify(body)); // Print the response body\
-
     displayedTweetHTML = JSON.parse(body)['html'];
     console.log("HTML: \n"+displayedTweetHTML);
 

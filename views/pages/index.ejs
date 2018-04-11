@@ -54,15 +54,12 @@
 <script>
   //https://www.html5rocks.com/en/tutorials/frameworks/angular-websockets/?redirect_from_locale=fr
   var socket = io.connect('https://warframe-texter-alerts.herokuapp.com/', { forceNew: true, multiplex: false });
-  function setupSocket() {
-    console.log("This was called.");
-    socket.once('displayedTweetHTML', function(data){
-      console.log("Received: "+JSON.stringify(data));
-      $('#latestTweet').html(data['displayedTweetHTML']);
-      setupSocket();
-    });
-  }
-  setupSocket();
+  socket.on('displayedTweetHTML', function(data){
+    console.log("Received: "+JSON.stringify(data));
+    $('#latestTweet').html(data['displayedTweetHTML']);
+
+    location.reload();
+  });
 </script>
 
 </html>
