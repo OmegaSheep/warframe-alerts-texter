@@ -77,8 +77,7 @@ Item.find({}, 'name', {multi: true}, function(err){
 });
 
 // Create a socket for displayedTweetHTML
-var x = 1;
-
+var currentTweet = "<p>No matching tweets found yet.</p>"
 io.on('connection', function (socket) {
   // Rapid Emitter for Testing
   /*
@@ -87,6 +86,7 @@ io.on('connection', function (socket) {
     x += 1;
   }, 5000);*/
   socket.emit('connection', "Success.");
+  socket.emit('displayedTweetHTML', { displayedTweetHTML: currentTweet })
 });
 
 // Called when a matching tweet is received.
@@ -97,9 +97,9 @@ m.on(accountName, function(tweet) {
 
   // Request the HTML version of the matching Tweet. Done asynchronously.
   request({url: twitterURL, qs: queryString}, function (error, response, body) {
-    displayedTweetHTML = JSON.parse(body)['html'];
-    console.log("HTML: \n"+displayedTweetHTML);
-    io.emit('displayedTweetHTML', { displayedTweetHTML: displayedTweetHTML });
+    currentTweet = JSON.parse(body)['html'];
+    console.log("HTML: \n"+currentTweet);
+    io.emit('displayedTweetHTML', { displayedTweetHTML: currentTweet });
   });
 
   //sendSMSMessage(tweet['text']);
