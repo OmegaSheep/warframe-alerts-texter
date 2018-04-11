@@ -94,7 +94,7 @@ var x = 1;
 
 io.on('connection', function (socket) {
   setInterval(function(){
-      socket.emit('displayedTweetHTML', { displayedTweetHTML: "<p>"+x.toString()+"</p>" });
+    socket.emit('displayedTweetHTML', { displayedTweetHTML: "<p>"+x.toString()+"</p>" });
     x += 1;
   }, 5000);
 });

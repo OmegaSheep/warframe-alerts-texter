@@ -55,12 +55,9 @@
   $(document).ready(function() {
     //https://www.html5rocks.com/en/tutorials/frameworks/angular-websockets/?redirect_from_locale=fr - for later when we switch to angular.
     var socket = io.connect('https://warframe-texter-alerts.herokuapp.com/', { forceNew: true, multiplex: false });
-    socket.on('connect', function(){
-      console.log("Connection received.");
-      socket.on('displayedTweetHTML', function(data){
-        console.log("Received: "+JSON.stringify(data));
-        $('#latestTweet').html(data['displayedTweetHTML']);
-      });
+    socket.on('displayedTweetHTML', function(data){
+      console.log("Received: "+JSON.stringify(data));
+      $('#latestTweet').html(data['displayedTweetHTML']);
     });
   });
 </script>
