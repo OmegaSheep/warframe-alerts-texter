@@ -57,8 +57,6 @@
   socket.on('displayedTweetHTML', function(data){
     console.log("Received: "+JSON.stringify(data));
     $('#latestTweet').html(data['displayedTweetHTML']);
-
-    location.reload();
   });
 </script>
 
