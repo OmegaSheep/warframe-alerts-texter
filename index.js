@@ -6,6 +6,7 @@ mongoose.Promise = require('bluebird'); // Better promise module than default.
 var monitor = require('./js/monitor-twitter/index.js'); // Use a local copy of this module with custom modifications.
 var app = express();
 var http = require('http');
+var Vue = require('vue');
 var server = http.createServer(app);
 var io = require('socket.io').listen(server);
 
