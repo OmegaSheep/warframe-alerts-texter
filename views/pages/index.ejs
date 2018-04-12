@@ -28,7 +28,7 @@
   <div class="row">
     <div class="col-md-6">
       <h3><span class="glyphicon glyphicon-info-sign"></span> Items Being Watched</h3>
-      <ul id="dataList">
+      <ul>
         <li>Item 1</li>
         <li>Item 2</li>
         <li>Item 3</li>
@@ -37,9 +37,9 @@
     <div class="col-md-6">
       <h3><span class="glyphicon glyphicon-info-sign"></span> Last Alert Sent</h3>
 
-      <div id="latestTweet">
-        <p>No tweets received yet.</p>
-      </div>
+      <span id="latestTweet" v-html="tweetHTML">
+        {{ tweetHTML }}
+      </span>
 
     </div>
   </div> <!-- row -->
@@ -56,18 +56,19 @@
   $(document).ready(function() {
     //https://www.html5rocks.com/en/tutorials/frameworks/angular-websockets/?redirect_from_locale=fr - for later when we switch to angular.
     var socket = io.connect('https://warframe-texter-alerts.herokuapp.com/', { forceNew: true, multiplex: false });
-    var listData = { items: null };
+    var tweetData = { tweetHTML: null }
 
-    /*var dataVue = new Vue({
-      el: '#dataList',
-      data: listData
-    });*/
+    var tweetVue = new Vue({
+      el: '#latestTweet',
+      data: tweetData
+    });
 
     socket.on('connection', function(msg){
       console.log("Connection received: "+msg);
       socket.on('displayedTweetHTML', function(data){
         console.log("Received: "+JSON.stringify(data));
-        $('#latestTweet').html(data['displayedTweetHTML']);
+        tweetData.tweetHTML = data['displayedTweetHTML'];
+        //$('#latestTweet').html(data['displayedTweetHTML'];);
       });
     });
 
