@@ -41,7 +41,7 @@
         {{ tweetHTML }}
       </span>-->
       <div id="latestTweet" >
-        {{ tweetHTML }}
+        <p>No tweets received yet.</p>
       </div>
 
     </div>
@@ -71,7 +71,7 @@
       socket.on('displayedTweetHTML', function(data){
         console.log("Received: "+JSON.stringify(data));
         //tweetData.tweetHTML = data['displayedTweetHTML'];
-        $('#latestTweet').html(data['displayedTweetHTML'];);
+        $('#latestTweet').html(data['displayedTweetHTML']);
       });
     });
 
