@@ -59,7 +59,7 @@
     var tweetApp = new Vue({
       el: '#latestTweetApp',
       data: tweetData,
-      updated: function() {
+      updated: function() { // This is a work around for Vue.js inability to run dynamically injected scripts by default.
         twitScript = document.createElement('script');
         twitScript.setAttribute('src', "//platform.twitter.com/widgets.js");
         document.head.appendChild(twitScript);

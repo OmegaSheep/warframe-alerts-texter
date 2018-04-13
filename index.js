@@ -66,7 +66,7 @@ var accountName = 'WarframeAlerts';
 Item.find({}, 'name', {multi: true}, function(err){
   console.log("Obtained item data.");
 }).then(function(itemData){
-  regexString = "cr|";
+  regexString = "";
   for (var i = 0; i < itemData.length; ++i) {
     regexString += itemData[i]['name'];
     console.log("Item "+(i+1).toString()+": "+itemData[i]['name']);
