@@ -68,9 +68,9 @@
     var tweetVue = new Vue({
       el: '#latestTweetVue',
       data: tweetData,
-      created: function() {
+      updated: function() {
         twitScript = document.createElement('script');
-        twitScript.setAttribute('src', "//platform.twitter.com/widgets.js")
+        twitScript.setAttribute('src', "//platform.twitter.com/widgets.js");
         document.head.appendChild(twitScript);
       }
     });
