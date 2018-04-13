@@ -67,7 +67,7 @@
     var tweetData = { tweetHTML: null }
     var tweetVue = new Vue({
       el: '#latestTweetVue',
-      data: tweetData
+      data: tweetData,
       created: function() {
         twitScript = document.createElemet('script');
         twitScript.setAttribute('src', "//platform.twitter.com/widgets.js")
