@@ -82,6 +82,7 @@ Item.find({}, 'name', {multi: true}, function(err){
     if (i < itemData.length - 1) { regexString += "|"; }
   }
   console.log("Final RegEx: \n"+regexString+"\n");
+  console.log("Watch List: \n"+JSON.stringify(watchList)+"\n");
   io.emit('displayedItemList', { displayedItemList: watchList });
   m.start(accountName, regexString, 30 * 1000);
   return;
