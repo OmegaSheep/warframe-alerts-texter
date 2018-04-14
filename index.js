@@ -100,9 +100,7 @@ m.on(accountName, function(tweet) {
     currentTweet = JSON.parse(body)['html'];
     console.log("HTML: \n"+currentTweet);
     io.emit('displayedTweetHTML', { displayedTweetHTML: currentTweet });
-    io.emit('displayedItemList', { displayedItemList: watchList }, function(error){
-      console.log("Emit Error:"+error);
-    });
+    io.emit('displayedItemList', { displayedItemList: watchList });
   });
 
   //sendSMSMessage(tweet['text']);
