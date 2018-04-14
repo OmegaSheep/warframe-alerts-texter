@@ -70,6 +70,7 @@ var currentTweet = "<p>No matching tweets found yet.</p>"
 io.on('connection', function (socket) {
   socket.emit('connection', "Success.");
   socket.emit('displayedTweetHTML', { displayedTweetHTML: currentTweet });
+  socket.emit('displayedItemList', { displayedItemList: watchList });
 });
 
 // This block sets up a regEX match for every item we want to monitor.

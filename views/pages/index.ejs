@@ -73,7 +73,7 @@
     });
 
     socket.on('connection', function(msg){
-      console.log("Connection received: "+msg);
+      console.log("Connection Received: "+msg);
 
       socket.on('displayedTweetHTML', function(data){
         console.log("Received: "+JSON.stringify(data));
@@ -85,7 +85,7 @@
       console.log("Received: "+JSON.stringify(data));
       itemData.trackedItems = data['displayedItemList'];
     });
-    
+
 </script>
 
 </html>
