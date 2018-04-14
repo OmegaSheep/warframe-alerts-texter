@@ -79,13 +79,13 @@
         console.log("Received: "+JSON.stringify(data));
         tweetData.tweetHTML = data['displayedTweetHTML'];
       });
-
-      socket.on('displayedItemList', function(data){
-        console.log("Received: "+JSON.stringify(data));
-        itemData.trackedItems = data['displayedItemList'];
-      });
-
     });
+
+    socket.on('displayedItemList', function(data){
+      console.log("Received: "+JSON.stringify(data));
+      itemData.trackedItems = data['displayedItemList'];
+    });
+    
 </script>
 
 </html>
