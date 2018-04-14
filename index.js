@@ -61,6 +61,15 @@ server.listen(app.get('port'), function() {
 var displayedTweetHTML = "<p>No recent tweets to display.</p>";
 var m = new monitor(twitterConfig);
 var accountName = 'WarframeAlerts';
+var watchList = [];
+
+// Create a socket for passing info to front-end.
+var currentTweet = "<p>No matching tweets found yet.</p>"
+io.on('connection', function (socket) {
+  socket.emit('connection', "Success.");
+  socket.emit('displayedTweetHTML', { displayedTweetHTML: currentTweet });
+  socket.emit('displayedItemList', { displayedItemList: watchList });
+});
 
 // This block sets up a regEX match for every item we want to monitor.
 Item.find({}, 'name', {multi: true}, function(err){
@@ -70,24 +79,13 @@ Item.find({}, 'name', {multi: true}, function(err){
   for (var i = 0; i < itemData.length; ++i) {
     regexString += itemData[i]['name'];
     console.log("Item "+(i+1).toString()+": "+itemData[i]['name']);
+    watchList.append({name: itemData[i]['name']});
     if (i < itemData.length - 1) { regexString += "|"; }
   }
   console.log("Final RegEx: \n"+regexString+"\n");
+  io.emit('displayedItemList', { displayedItemList: watchList });
   m.start(accountName, regexString, 30 * 1000);
   return;
-});
-
-// Create a socket for displayedTweetHTML
-var currentTweet = "<p>No matching tweets found yet.</p>"
-io.on('connection', function (socket) {
-  // Rapid Emitter for Testing
-  /*
-  setInterval(function(){
-    socket.emit('displayedTweetHTML', { displayedTweetHTML: "<p>"+x.toString()+"</p>" });
-    x += 1;
-  }, 5000);*/
-  socket.emit('connection', "Success.");
-  socket.emit('displayedTweetHTML', { displayedTweetHTML: currentTweet })
 });
 
 // Called when a matching tweet is received.
