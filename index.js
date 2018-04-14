@@ -77,7 +77,7 @@ io.on('connection', function (socket) {
 Item.find({}, 'name', {multi: true}, function(err){
   console.log("Obtained item data.");
 }).then(function(itemData){
-  regexString = "cr|";
+  regexString = "|";
   for (var i = 0; i < itemData.length; ++i) {
     regexString += itemData[i]['name'];
     console.log("Item "+(i+1).toString()+": "+itemData[i]['name']);
@@ -104,7 +104,7 @@ m.on(accountName, function(tweet) {
     io.emit('displayedItemList', { displayedItemList: watchList });
   });
 
-  //sendSMSMessage(tweet['text']);
+  sendSMSMessage(tweet['text']);
 
 });
 
