@@ -1,6 +1,7 @@
 var express = require('express');
 var request = require('request');
 var bodyParser = require('body-parser');
+var favicon = require('serve-favicon');
 var mongoose = require('mongoose');
 mongoose.Promise = require('bluebird'); // Better promise module than default.
 var monitor = require('./js/monitor-twitter/index.js'); // Use a local copy of this module with custom modifications.
@@ -37,6 +38,7 @@ var Item = mongoose.model('Item', SCHEMA.itemSchema);
 app.set('port', (process.env.PORT || 5000));
 
 app.use(express.static(__dirname + '/public'));
+app.use(favicon('/favicon.ico'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
