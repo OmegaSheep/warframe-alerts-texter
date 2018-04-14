@@ -46,10 +46,11 @@
 </body>
 
 <script src="/socket.io/socket.io.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.min.js"></script>
 <script>
     var socket = io.connect('https://warframe-texter-alerts.herokuapp.com/', { forceNew: true, multiplex: false });
 
+    // Tweet Vue
     var tweetData = { tweetHTML: null };
     var tweetApp = new Vue({
       el: '#latestTweetApp',
@@ -61,22 +62,22 @@
       }
     });
 
+    // Item List Vue
     var itemData = { trackedItems: [] };
     var trackedItemApp = new Vue({
       el: '#trackedItemApp',
       data: itemData
     });
 
+    // Receive Data from Server
     socket.on('connection', function(msg){
-      console.log("Connection Received: "+msg);
-
+      //console.log("Connection Received: "+msg);
       socket.on('displayedTweetHTML', function(data){
-        console.log("Received: "+JSON.stringify(data));
+        //console.log("Received: "+JSON.stringify(data));
         tweetData.tweetHTML = data['displayedTweetHTML'];
       });
-
       socket.on('displayedItemList', function(data){
-        console.log("Received: "+JSON.stringify(data));
+        //console.log("Received: "+JSON.stringify(data));
         itemData.trackedItems = data['displayedItemList'];
       });
     });

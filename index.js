@@ -59,14 +59,32 @@ server.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
 });
 
+// Send texts to all subscribers.
+function sendSMSMessage(text) {
+  User.find({}, 'name phoneNumber', {multi: true}, function(err){
+    console.log("Obtained user data.");
+  }).then(function(userData){
+    for (var i = 0; i < userData.length; ++i) {
+      client.messages.create({
+          to: userData[i]['phoneNumber'],
+          from: process.env.TWILIO_NUMBER,
+          body: "Hello "+userData[i]['name']+",\n"+
+          "The following Warframe Alert has been released: \n\n"+text,
+      }, function(err, message) {
+          console.log(message.sid);
+      });
+    }
+    return;
+  });
+}
+
 // Initial Variables for main block.
-var displayedTweetHTML = "<p>No recent tweets to display.</p>";
 var m = new monitor(twitterConfig);
 var accountName = 'WarframeAlerts';
+var currentTweet = "<p>No matching tweets found yet.</p>"
 var watchList = [];
 
 // Create a socket for passing info to front-end.
-var currentTweet = "<p>No matching tweets found yet.</p>"
 io.on('connection', function (socket) {
   socket.emit('connection', "Success.");
   socket.emit('displayedTweetHTML', { displayedTweetHTML: currentTweet });
@@ -104,25 +122,6 @@ m.on(accountName, function(tweet) {
     io.emit('displayedItemList', { displayedItemList: watchList });
   });
 
+  // Send out text messages
   sendSMSMessage(tweet['text']);
-
 });
-
-function sendSMSMessage(text) {
-  // Send texts to all subscribers.
-  User.find({}, 'name phoneNumber', {multi: true}, function(err){
-    console.log("Obtained user data.");
-  }).then(function(userData){
-    for (var i = 0; i < userData.length; ++i) {
-      client.messages.create({
-          to: userData[i]['phoneNumber'],
-          from: process.env.TWILIO_NUMBER,
-          body: "Hello "+userData[i]['name']+",\n"+
-          "The following Warframe Alert has been released: \n\n"+text,
-      }, function(err, message) {
-          console.log(message.sid);
-      });
-    }
-    return;
-  });
-}
