@@ -2,6 +2,8 @@
 
 A simple node.js/heroku app for sending text message alerts when certain items in the video game Warframe become available.
 
+This is now deprecated because the alerts system has been scrapped for Nightwave.
+
 # Services Used
 
 mlab.com - Free MongoDB storage. (Store the list of subscribers / items to watch out for in alerts).
