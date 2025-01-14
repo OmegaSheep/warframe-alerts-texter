@@ -2,7 +2,7 @@
 
 A simple node.js/heroku app for sending text message alerts when certain items in the video game Warframe become available.
 
-This is now deprecated because the alerts system has been scrapped for Nightwave.
+This is now deprecated because the alerts system has been scrapped for Nightwave - and Twitter has been taken over by a horrible monster.
 
 # Services Used
 
